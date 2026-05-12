@@ -49,7 +49,7 @@ export default function AdminAppointments() {
           <h2 style={{ fontFamily: 'Nunito, sans-serif', fontWeight: 900, fontSize: '1.6rem', color: 'var(--text)', marginBottom: 2 }}>Rendez-vous</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>{appointments.length} résultat{appointments.length > 1 ? 's' : ''}</p>
         </div>
-        <button disabled title="Fonctionnalité bientôt disponible" style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '9px 18px', borderRadius: 50, border: '1.5px solid var(--border)', background: '#fff', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, cursor: 'not-allowed', opacity: 0.5 }}>
+        <button type="button" disabled title="Fonctionnalité bientôt disponible" style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '9px 18px', borderRadius: 50, border: '1.5px solid var(--border)', background: '#fff', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, cursor: 'not-allowed', opacity: 0.5 }}>
           <FaDownload size={12} /> Exporter CSV
         </button>
       </div>
@@ -110,6 +110,7 @@ export default function AdminAppointments() {
                     <div style={{ display: 'flex', gap: 6 }}>
                       {rdv.statut === 'en attente' && (
                         <button
+                          type="button"
                           title="Confirmer"
                           onClick={() => handleConfirm(rdv)}
                           style={{ width: 30, height: 30, borderRadius: 8, background: 'rgba(39,174,96,0.12)', border: '1px solid rgba(39,174,96,0.3)', color: '#27AE60', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -119,6 +120,7 @@ export default function AdminAppointments() {
                       )}
                       {rdv.statut !== 'annulé' && (
                         <button
+                          type="button"
                           title="Annuler"
                           onClick={() => handleCancel(rdv)}
                           style={{ width: 30, height: 30, borderRadius: 8, background: 'rgba(224,92,92,0.1)', border: '1px solid rgba(224,92,92,0.25)', color: 'var(--danger)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}

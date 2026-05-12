@@ -96,7 +96,7 @@ export default function AdminDoctors() {
                 <motion.tr
                   key={d.id}
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }}
-                  style={{ borderBottom: '1px solid var(--border)', background: i % 2 === 0 ? '#fff' : 'var(--bg)', opacity: d.actif !== false ? 1 : 0.5 }}
+                  style={{ borderBottom: '1px solid var(--border)', background: i % 2 === 0 ? '#fff' : 'var(--bg)', opacity: d.actif === true ? 1 : 0.5 }}
                 >
                   <td style={{ padding: '12px 14px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -122,10 +122,10 @@ export default function AdminDoctors() {
                   <td style={{ padding: '12px 14px', whiteSpace: 'nowrap' }}>
                     <span style={{
                       display: 'inline-block', padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700,
-                      background: d.actif !== false ? 'rgba(39,174,96,0.12)' : 'rgba(224,92,92,0.1)',
-                      color: d.actif !== false ? '#27AE60' : 'var(--danger)',
+                      background: d.actif === true ? 'rgba(39,174,96,0.12)' : 'rgba(224,92,92,0.1)',
+                      color: d.actif === true ? '#27AE60' : 'var(--danger)',
                     }}>
-                      {d.actif !== false ? 'Actif' : 'Inactif'}
+                      {d.actif === true ? 'Actif' : 'Inactif'}
                     </span>
                   </td>
                   <td style={{ padding: '12px 14px', whiteSpace: 'nowrap' }}>
@@ -133,7 +133,7 @@ export default function AdminDoctors() {
                       <button title="Modifier" onClick={() => openEdit(d)} style={{ width: 30, height: 30, borderRadius: 8, background: 'var(--primary-bg)', border: '1px solid rgba(10,110,116,0.2)', color: 'var(--primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <FaEdit size={11} />
                       </button>
-                      <button title={d.actif !== false ? 'Désactiver' : 'Activer'} onClick={() => { toggleDoctorActive(d.id); toast.info(`${d.nom} ${d.actif !== false ? 'désactivé' : 'activé'}`) }} style={{ width: 30, height: 30, borderRadius: 8, background: d.actif !== false ? 'rgba(244,168,35,0.1)' : 'rgba(39,174,96,0.1)', border: `1px solid ${d.actif !== false ? 'rgba(244,168,35,0.3)' : 'rgba(39,174,96,0.3)'}`, color: d.actif !== false ? '#C47D00' : '#27AE60', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <button title={d.actif === true ? 'Désactiver' : 'Activer'} onClick={() => { toggleDoctorActive(d.id); toast.info(`${d.nom} ${d.actif === true ? 'désactivé' : 'activé'}`) }} style={{ width: 30, height: 30, borderRadius: 8, background: d.actif === true ? 'rgba(244,168,35,0.1)' : 'rgba(39,174,96,0.1)', border: `1px solid ${d.actif === true ? 'rgba(244,168,35,0.3)' : 'rgba(39,174,96,0.3)'}`, color: d.actif === true ? '#C47D00' : '#27AE60', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <FaPowerOff size={11} />
                       </button>
                     </div>
