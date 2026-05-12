@@ -42,12 +42,28 @@ export function AppProvider({ children }) {
 
   const addAppointment = (rdv) => {
     setAppointments(prev => [rdv, ...prev])
+    if (import.meta.env.PROD) {
+      const docteur = doctors.find(d => d.id === rdv.docteurId)
+      fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'nouveau_rdv', rdv, docteur }),
+      }).catch(() => {})
+    }
   }
 
   const updateAppointmentStatus = (id, statut) => {
+    const rdv = appointments.find(a => a.id === id)
     setAppointments(prev =>
       prev.map(a => (a.id === id ? { ...a, statut } : a))
     )
+    if (import.meta.env.PROD && rdv) {
+      fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'statut_change', rdv: { ...rdv, statut }, statut }),
+      }).catch(() => {})
+    }
   }
 
   const addDoctor = (doctor) => {
