@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 import { AppProvider } from './context/AppContext'
+import ScrollToTop          from './components/ui/ScrollToTop'
 import ProtectedRoute       from './components/ProtectedRoute'
 import DoctorProtectedRoute from './components/DoctorProtectedRoute'
 import Home             from './pages/Home'
@@ -53,6 +54,7 @@ export default function App() {
   return (
     <AppProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <AnimatedRoutes />
         <ToastContainer
           position="top-right"
