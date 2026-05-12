@@ -23,8 +23,13 @@ export function AppProvider({ children }) {
   })
 
   const [medecinId, setMedecinId] = useState(() => {
-    const id = localStorage.getItem('medecinId')
-    return id ? Number(id) : null
+    try {
+      const id = localStorage.getItem('medecinId')
+      const parsed = id ? Number(id) : null
+      return Number.isInteger(parsed) ? parsed : null
+    } catch {
+      return null
+    }
   })
 
   useEffect(() => {
