@@ -6,23 +6,28 @@ import PageTransition from '../components/ui/PageTransition'
 import { useApp }     from '../context/AppContext'
 
 export default function Login() {
-  const { login } = useApp()
+  const { login, loginDoctor } = useApp()
   const navigate  = useNavigate()
-  const [email,     setEmail]     = useState('')
-  const [password,  setPassword]  = useState('')
-  const [showPwd,   setShowPwd]   = useState(false)
-  const [error,     setError]     = useState('')
-  const [loading,   setLoading]   = useState(false)
+  const [email,    setEmail]    = useState('')
+  const [password, setPassword] = useState('')
+  const [showPwd,  setShowPwd]  = useState(false)
+  const [error,    setError]    = useState('')
+  const [loading,  setLoading]  = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!email || !password) { setError('Veuillez remplir tous les champs.'); return }
     setLoading(true); setError('')
     await new Promise(r => setTimeout(r, 400))
-    const ok = login(email, password)
+
+    if (login(email, password)) {
+      navigate('/admin')
+    } else if (loginDoctor(email, password)) {
+      navigate('/medecin')
+    } else {
+      setError('Email ou mot de passe incorrect.')
+    }
     setLoading(false)
-    if (ok) navigate('/admin')
-    else setError('Email ou mot de passe incorrect.')
   }
 
   return (
@@ -35,13 +40,14 @@ export default function Login() {
             <div style={{ width: 60, height: 60, borderRadius: 16, background: 'linear-gradient(135deg,var(--primary),var(--primary-light))', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--glow-primary)', marginBottom: 14 }}>
               <FaHospital size={26} color="#fff" />
             </div>
-            <h2 style={{ fontFamily: 'Nunito, sans-serif', fontWeight: 900, color: 'var(--text)', marginBottom: 4 }}>Espace Administration</h2>
+            <h2 style={{ fontFamily: 'Nunito, sans-serif', fontWeight: 900, color: 'var(--text)', marginBottom: 4 }}>Espace Personnel</h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>Clinique Al-Baraka — Djibouti</p>
           </div>
 
           {/* Credentials démo */}
           <div style={{ background: 'rgba(18,168,176,0.08)', border: '1px solid rgba(18,168,176,0.25)', borderRadius: 10, padding: '10px 14px', marginBottom: 20, fontSize: '0.82rem', color: 'var(--primary)' }}>
-            <strong>Accès démo :</strong> admin@clinique-albaraka.dj / demo1234
+            <div><strong>Admin :</strong> admin@clinique-albaraka.dj / demo1234</div>
+            <div style={{ marginTop: 4 }}><strong>Médecin :</strong> amina.hassan@clinique-albaraka.dj / medecin1234</div>
           </div>
 
           <div className="card-premium" style={{ padding: '32px 28px' }}>
@@ -54,7 +60,7 @@ export default function Login() {
                   <input
                     data-testid="email-input"
                     type="email" value={email} onChange={e => setEmail(e.target.value)}
-                    placeholder="admin@clinique-albaraka.dj"
+                    placeholder="votre@email.com"
                     style={{ width: '100%', paddingLeft: 38, paddingRight: 14, paddingTop: 10, paddingBottom: 10, border: '1.5px solid var(--border)', borderRadius: 'var(--radius-sm)', fontSize: '0.9rem', fontFamily: 'Inter, sans-serif', outline: 'none', background: '#fff', color: 'var(--text)' }}
                   />
                 </div>
