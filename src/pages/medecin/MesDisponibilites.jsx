@@ -13,6 +13,7 @@ export default function MesDisponibilites() {
   const [horaires,    setHoraires]    = useState(doctor?.horaires ?? '08h00 – 17h00')
   const [dirty,       setDirty]       = useState(false)
 
+  /* eslint-disable react-hooks/set-state-in-effect -- reset form when medecinId changes */
   useEffect(() => {
     if (doctor) {
       setJoursActifs(doctor.disponibilites)
@@ -20,6 +21,7 @@ export default function MesDisponibilites() {
       setDirty(false)
     }
   }, [doctor])
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const toggleJour = (j) => {
     setJoursActifs(prev =>
