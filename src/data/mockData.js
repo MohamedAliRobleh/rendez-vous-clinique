@@ -83,3 +83,10 @@ export const ADMIN_CREDENTIALS = {
   email: 'admin@clinique-albaraka.dj',
   password: 'demo1234',
 }
+
+export const DOCTOR_CREDENTIALS = [
+  { docteurId: 1, email: 'amina.hassan@clinique-albaraka.dj',    password: 'medecin1234' },
+  { docteurId: 2, email: 'omar.abdillahi@clinique-albaraka.dj',  password: 'medecin1234' },
+  { docteurId: 3, email: 'fatouma.warsama@clinique-albaraka.dj', password: 'medecin1234' },
+  { docteurId: 4, email: 'yusuf.mohamad@clinique-albaraka.dj',   password: 'medecin1234' },
+]

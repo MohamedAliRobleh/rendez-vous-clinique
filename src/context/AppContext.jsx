@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { DOCTORS, APPOINTMENTS_INITIAL, ADMIN_CREDENTIALS } from '../data/mockData'
+import { DOCTORS, APPOINTMENTS_INITIAL, ADMIN_CREDENTIALS, DOCTOR_CREDENTIALS } from '../data/mockData'
 
 const AppContext = createContext(null)
 
@@ -22,6 +22,11 @@ export function AppProvider({ children }) {
     }
   })
 
+  const [medecinId, setMedecinId] = useState(() => {
+    const id = localStorage.getItem('medecinId')
+    return id ? Number(id) : null
+  })
+
   useEffect(() => {
     localStorage.setItem('rdv_data', JSON.stringify(appointments))
   }, [appointments])
@@ -31,12 +36,10 @@ export function AppProvider({ children }) {
   }, [doctors])
 
   const addAppointment = (rdv) => {
-    // TODO PRODUCTION: await supabase.from('appointments').insert({ ...rdv })
     setAppointments(prev => [rdv, ...prev])
   }
 
   const updateAppointmentStatus = (id, statut) => {
-    // TODO PRODUCTION: await supabase.from('appointments').update({ statut }).eq('id', id)
     setAppointments(prev =>
       prev.map(a => (a.id === id ? { ...a, statut } : a))
     )
@@ -66,10 +69,28 @@ export function AppProvider({ children }) {
     localStorage.removeItem('isAdmin')
   }
 
+  const loginDoctor = (email, password) => {
+    const found = DOCTOR_CREDENTIALS.find(c => c.email === email && c.password === password)
+    if (found) {
+      localStorage.setItem('isMedecin', 'true')
+      localStorage.setItem('medecinId', String(found.docteurId))
+      setMedecinId(found.docteurId)
+      return true
+    }
+    return false
+  }
+
+  const logoutDoctor = () => {
+    localStorage.removeItem('isMedecin')
+    localStorage.removeItem('medecinId')
+    setMedecinId(null)
+  }
+
   return (
     <AppContext.Provider value={{
       appointments,
       doctors,
+      medecinId,
       addAppointment,
       updateAppointmentStatus,
       addDoctor,
@@ -77,6 +98,8 @@ export function AppProvider({ children }) {
       toggleDoctorActive,
       login,
       logout,
+      loginDoctor,
+      logoutDoctor,
     }}>
       {children}
     </AppContext.Provider>
