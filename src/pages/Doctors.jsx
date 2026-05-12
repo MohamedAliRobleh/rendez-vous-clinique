@@ -7,7 +7,7 @@ import DoctorCard    from '../components/ui/DoctorCard'
 import SkeletonCard  from '../components/ui/SkeletonCard'
 import PageTransition from '../components/ui/PageTransition'
 import { useApp }    from '../context/AppContext'
-import { SPECIALITES, JOURS } from '../data/mockData'
+import { SPECIALITES } from '../data/mockData'
 
 const containerVariants = {
   hidden: {},

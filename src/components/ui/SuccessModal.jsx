@@ -4,6 +4,11 @@ import { FaCheckCircle, FaTimes, FaCalendarAlt, FaClock, FaUserMd } from 'react-
 
 const CONFETTI_COLORS = ['#0A6E74','#12A8B0','#F4A823','#27AE60','#fff','#E8F7F8']
 
+const CONFETTI_SIZES = Array.from({ length: 28 }, () => ({
+  width: Math.random() * 7 + 4,
+  height: Math.random() * 7 + 4,
+}))
+
 export default function SuccessModal({ rdv, onClose }) {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -22,13 +27,13 @@ export default function SuccessModal({ rdv, onClose }) {
         onClick={onClose}
       >
         {/* Confetti CSS */}
-        {Array.from({ length: 28 }, (_, i) => (
+        {CONFETTI_SIZES.map((item, i) => (
           <div key={i} style={{
             position: 'fixed',
             left: `${5 + (i * 3.3) % 90}%`,
             top: 0,
-            width: Math.random() * 7 + 4,
-            height: Math.random() * 7 + 4,
+            width: item.width,
+            height: item.height,
             background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
             borderRadius: i % 3 === 0 ? '50%' : 2,
             animation: `confettiFall ${1.4 + (i % 5) * 0.3}s ease-in ${(i % 8) * 0.1}s forwards`,

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   FaCalendarAlt, FaHeartbeat, FaBaby, FaFemale, FaStethoscope,
-  FaArrowRight, FaCheckCircle, FaSearch, FaShieldAlt,
+  FaArrowRight, FaCheckCircle,
 } from 'react-icons/fa'
 import Navbar           from '../components/layout/Navbar'
 import Footer           from '../components/layout/Footer'

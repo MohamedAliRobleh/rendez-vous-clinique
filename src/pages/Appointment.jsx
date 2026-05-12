@@ -3,9 +3,9 @@ import { useSearchParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
-import { format, addDays, isValid } from 'date-fns'
+import { format, addDays } from 'date-fns'
 import { fr } from 'date-fns/locale'
-import { FaCheck, FaArrowLeft, FaArrowRight, FaUser, FaPhone, FaEnvelope } from 'react-icons/fa'
+import { FaCheck, FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import Navbar        from '../components/layout/Navbar'
 import Footer        from '../components/layout/Footer'
 import StepIndicator from '../components/ui/StepIndicator'
@@ -50,7 +50,7 @@ export default function Appointment() {
     return selectedDoc.disponibilites.includes(dayJour(date))
   }
 
-  const isSlotAvailable = (heure) => {
+  const isSlotAvailable = () => {
     if (!selectedDoc || !selectedDate) return false
     return selectedDoc.disponibilites.includes(dayJour(selectedDate))
   }
@@ -213,7 +213,7 @@ export default function Appointment() {
                     <h5 style={{ fontFamily: 'Nunito, sans-serif', fontWeight: 800, marginBottom: 16 }}>Choisissez un créneau</h5>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', gap: 8 }}>
                       {CRENEAUX.map(heure => {
-                        const available = isSlotAvailable(heure)
+                        const available = isSlotAvailable()
                         const isSelected = selectedTime === heure
                         return (
                           <button

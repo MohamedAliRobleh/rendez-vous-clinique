@@ -83,6 +83,7 @@ export function AppProvider({ children }) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useApp() {
   const ctx = useContext(AppContext)
   if (!ctx) throw new Error('useApp must be inside AppProvider')

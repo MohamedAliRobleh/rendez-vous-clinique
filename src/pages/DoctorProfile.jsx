@@ -1,6 +1,6 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Tab, Tabs } from 'react-bootstrap'
-import { FaCalendarAlt, FaArrowLeft, FaClock, FaLanguage, FaBriefcase } from 'react-icons/fa'
+import { FaCalendarAlt, FaClock, FaLanguage, FaBriefcase } from 'react-icons/fa'
 import Navbar        from '../components/layout/Navbar'
 import Footer        from '../components/layout/Footer'
 import StarRating    from '../components/ui/StarRating'
