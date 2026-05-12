@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import KpiCard    from '../../components/ui/KpiCard'
@@ -21,10 +22,13 @@ export default function Dashboard() {
   const { kpis, upcoming } = useAppointments()
   const { doctors } = useApp()
 
-  const rdvParMedecin = doctors.map(d => ({
-    ...d,
-    count: upcoming.filter(a => a.docteurId === d.id).length,
-  }))
+  const rdvParMedecin = useMemo(() =>
+    doctors.map(d => ({
+      ...d,
+      count: upcoming.filter(a => a.docteurId === d.id).length,
+    })),
+    [doctors, upcoming]
+  )
 
   const KPI_DATA = [
     { title: 'Total rendez-vous',  value: kpis.total,     icon: '📅', gradient: 'linear-gradient(135deg,#0A6E74,#12A8B0)' },
@@ -97,7 +101,7 @@ export default function Dashboard() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {rdvParMedecin.map(d => (
                 <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <img src={d.photo} alt="" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--primary-bg)', flexShrink: 0 }} />
+                  <img src={d.photo} alt={d.nom} style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--primary-bg)', flexShrink: 0 }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: '0.83rem', fontWeight: 700, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{d.nom}</div>
                     <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{d.specialite}</div>
