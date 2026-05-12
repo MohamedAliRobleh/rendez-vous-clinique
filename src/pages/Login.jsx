@@ -18,16 +18,18 @@ export default function Login() {
     e.preventDefault()
     if (!email || !password) { setError('Veuillez remplir tous les champs.'); return }
     setLoading(true); setError('')
-    await new Promise(r => setTimeout(r, 400))
-
-    if (login(email, password)) {
-      navigate('/admin')
-    } else if (loginDoctor(email, password)) {
-      navigate('/medecin')
-    } else {
-      setError('Email ou mot de passe incorrect.')
+    try {
+      await new Promise(r => setTimeout(r, 400))
+      if (login(email, password)) {
+        navigate('/admin')
+      } else if (loginDoctor(email, password)) {
+        navigate('/medecin')
+      } else {
+        setError('Email ou mot de passe incorrect.')
+      }
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   return (
@@ -77,14 +79,14 @@ export default function Login() {
                     placeholder="••••••••"
                     style={{ width: '100%', paddingLeft: 38, paddingRight: 40, paddingTop: 10, paddingBottom: 10, border: '1.5px solid var(--border)', borderRadius: 'var(--radius-sm)', fontSize: '0.9rem', fontFamily: 'Inter, sans-serif', outline: 'none', background: '#fff', color: 'var(--text)' }}
                   />
-                  <button type="button" onClick={() => setShowPwd(s => !s)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}>
+                  <button type="button" onClick={() => setShowPwd(s => !s)} aria-label={showPwd ? 'Masquer le mot de passe' : 'Afficher le mot de passe'} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}>
                     {showPwd ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
                   </button>
                 </div>
               </div>
 
               {error && (
-                <div style={{ background: 'rgba(224,92,92,0.1)', border: '1px solid rgba(224,92,92,0.3)', borderRadius: 8, padding: '9px 12px', marginBottom: 18, color: 'var(--danger)', fontSize: '0.83rem' }}>
+                <div role="alert" style={{ background: 'rgba(224,92,92,0.1)', border: '1px solid rgba(224,92,92,0.3)', borderRadius: 8, padding: '9px 12px', marginBottom: 18, color: 'var(--danger)', fontSize: '0.83rem' }}>
                   {error}
                 </div>
               )}
